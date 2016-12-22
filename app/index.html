@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Form Example</title>
+</head>
+<body>
+  <!-- ADD your email in the action attribute -->
+  <form ng-app="app"
+    action="https://formspree.io/YOUR-EMAIL@gmail.com"
+    method="POST"
+    name="upliftForm"
+    novalidate>
+    <!-- FULL NAME -->
+    <div class="form-group">
+      <label for="fullname">Full Name</label>
+      <input type="text"
+        class="form-control"
+        name="fullname"
+        ng-model="fullname"
+        required />
+      <div ng-messages="upliftForm.fullname.$error" ng-if="upliftForm.fullname.$touched">
+        <div ng-message="required">
+          You must enter Full name!
+        </div>
+      </div>
+    </div>
+    <!-- EMAIL ADDRESS -->
+    <div class="form-group">
+      <label for="email">Email address</label>
+          <input type="email"
+            class="form-control"
+            name="_replyto"
+            ng-model="_replyto"
+            ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+            required />
+        <div ng-messages="upliftForm._replyto.$error" ng-if="upliftForm._replyto.$touched">
+          <div class="ng-message" ng-message="required">
+            Email is required!
+          </div>
+          <div class="ng-message" ng-message="pattern">
+            Must be a valid email!
+          </div>
+        </div>
+    </div>
+    <!-- MESSAGE BODY-->
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea class="form-control"
+          rows="3"
+          name="message"
+          ng-model="message"
+          required></textarea>
+      <div ng-messages="upliftForm.message.$error" ng-if="upliftForm.message.$touched">
+      <div class="ng-message"
+        ng-message="required">
+          Message is Required!</div>
+      </div>
+    </div>
+    <!-- redirect to a different url when user submits the form -->
+    <input type="hidden" name="_next" value="./thankyou.html" />
+    <div class="send-section">
+      <button type="submit"
+              value="send"
+              ng-disabled="upliftForm.$invalid">
+        <p style="color: #fff;">Send</p>
+      </button>
+    </div>
+  </form>
+  <!-- Scripts -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-messages/angular-messages.js"></script>
+  <script>
+      (function() {
+        'use strict';
+
+        angular
+          .module('app',
+            ['ngMessages']);
+        })();
+  </script>
+</body>
+</html>
